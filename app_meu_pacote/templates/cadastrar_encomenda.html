@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Meu Pacote - Cadastro de Encomendas
+{% endblock %}
+
+{% block content %}
+<h2 class="text-center fw-bold">Cadastrar encomendas</h2>
+
+{% if msg %}
+<div class="alert alert-success" role="alert">
+  {{ msg }}
+</div>
+{% endif %}
+
+<input class="form-control" id="myInput" type="text" placeholder="Pesquisar Morador, Apartamento ou Condomínio">
+<br>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+<script>
+  const input = document.getElementById("myInput");
+  const select = document.getElementById("id_morador");
+  const options = select.getElementsByTagName("option");
+
+  input.addEventListener("keyup", function() {
+    const filter = input.value.toLowerCase();
+
+    for (let i = 0; i < options.length; i++) {
+      const option = options[i];
+      const text = option.textContent.toLowerCase();
+      option.style.display = text.includes(filter) ? "" : "none";
+    }
+  });
+</script>
+
+{% endblock %}
+
+

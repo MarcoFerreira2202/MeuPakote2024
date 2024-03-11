@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Meu Pacote - Encomenda
+{% endblock %}
+
+{% block content %}
+<br>
+<h3 class="text-center fw-bold">Dados da Encomenda</h3>
+
+{% if msg %}
+<div class="alert alert-success" role="alert">
+  {{ msg }}
+</div>
+{% endif %}
+
+{% if msg_error %}
+<div class="alert alert-danger" role="alert">
+  {{ msg_error }}
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <p class="card-text"><strong>Descrição:</strong> {{ encomenda.descricao }}</p>
+                <p class="card-text"><strong>Morador:</strong> {{ encomenda.morador }}</p>
+                <p class="card-text"><strong>Data do Recebimento:</strong> {{ encomenda.data_hora_recebimento|date:'d/m/Y H:i' }}</p>
+                <p class="card-text"><strong>Responsável pelo Recebimento:</strong> {{ encomenda.funcionario_recebimento }}</p>
+                <p class="card-text"><strong>Data da Entrega:</strong> {% if encomenda.data_hora_entrega != None %} {{ encomenda.data_hora_entrega|date:'d/m/Y H:i' }} {% endif %}</p>
+                <p class="card-text"><strong>Responsável pela Entrega:</strong> {% if encomenda.data_hora_entrega != None %} {{ encomenda.funcionario_entrega }} {% endif %}</p>
+              </li>
+
+              {% if encomenda.data_hora_entrega == None %}
+              <li class="list-group-item mt-3">
+                <form method="post" class="row g-3">
+                  {% csrf_token %}
+                  <div class="col-auto pt-2">
+                    <label for="id_codigo_enviado">Informar código para entrega:</label>
+                  </div>
+                  <div class="col-auto">                    
+                    <input type="text" name="codigo_enviado" class="form-control" maxlength="4" required id="id_codigo_enviado" placeholder="4 dígitos numéricos">  
+                  </div>
+                  <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">Realizar baixa da encomenda</button>
+                  </div>
+                </form>
+              </li>
+              {% endif %}
+              
+
+            </ul>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

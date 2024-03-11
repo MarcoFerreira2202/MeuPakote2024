@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-center fw-bold">Encomendas Pendentes</h2>
+{% if encomendas %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Retirada de Encomendas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        data-id="{{ encomenda.id }}"
+        <strong>ID da encomenda:</strong> {{ encomendas.id }} <br>
+        <strong>Descrição:</strong> Encomenda 1 <br>
+        <strong>Morador:</strong> Fulano <br>
+        <strong>Data de Entrega:</strong> 01/01/2021 <br> <br>
+        Confirma a retirada da encomenda?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Confirmar retirada da encomenda</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>        
+      </div>
+    </div>
+  </div>
+</div>
+
+<input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+<br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Descrição</th>
+      <th>Morador</th>
+      <th>AP</th>
+      <th>Condomínio</th>
+      <th>Data de Entrega</th>
+      <th class="text-center">Receber</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for encomenda in encomendas %}
+    <tr>
+      <td>{{ encomenda.id }}</td>
+      <td>{{ encomenda.descricao }}</td>
+      <td>{{ encomenda.morador.nome }}</td>
+      <td>{{ encomenda.morador.apartamento.numero }}</td>
+      <td>{{ encomenda.morador.apartamento.condominio.nome }}</td>
+      <td>{{ encomenda.data_hora_recebimento }}</td>
+      {% comment %} <td class="text-center"> <button class="btn btn-primary" role="button" onclick="baixarEncomenda()">Dar baixa na encomenda</button> </td> {% endcomment %}
+      <td class="text-center"> <a class="btn btn-primary" href="/encomenda/{{encomenda.id}}" role="button">Dar baixa na encomenda</a> </td>
+      {% comment %} <td>
+        <a href="{{ urlFor('encomendas.receber', {'id': encomenda.id}) }}" class="btn btn-success">Receber</a>
+      </td> {% endcomment %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+  const input = document.getElementById("myInput");
+  const table = document.querySelector("tbody"); // "table"
+  const rows = table.getElementsByTagName("tr");
+
+  input.addEventListener("keyup", function() {
+      const filter = input.value.toLowerCase();
+
+      for (let i = 0; i < rows.length; i++) {
+          const cells = rows[i].getElementsByTagName("td");
+          let found = false;
+          for (let j = 0; j < cells.length; j++) {
+              const cell = cells[j];
+              if (cell.innerHTML.toLowerCase().indexOf(filter) > -1) {
+                  found = true;
+                  break;
+              }
+          }
+          rows[i].style.display = found ? "" : "none";
+      }
+  });
+</script>
+
+{% else %}
+<p>Não há encomendas pendentes no momento.</p>
+{% endif %}
+
+{% endblock %}

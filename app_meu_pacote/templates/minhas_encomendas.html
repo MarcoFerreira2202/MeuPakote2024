@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Meu Pacote - Minhas Encomendas
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-3">
+  <div class="row">
+
+    <div class="col order-first text-center">
+      <h3 class="text-center fw-bold">Minhas encomendas</h3>
+    </div>
+    
+
+    <div class="col order-last text-center">
+      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="btnradio1">Encomendas Pendentes</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btnradio2">Encomendas Entregues</label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<br>
+{% if encomendas %}
+
+<input class="form-control" id="myInput" type="text" placeholder="Pesquisar">
+<br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Descrição</th>
+      <th>Morador</th>
+      <th>Apartamento</th>
+      <th>Data de Recebimento</th>
+      <th>Data de Entrega</th>
+      <th>Código de Retirada</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for encomenda in encomendas %}
+    <tr>
+        <td><a href="/encomenda/{{encomenda.id}}">{{ encomenda.id }}</td>
+        <td>{{ encomenda.descricao }}</td>
+        <td>{{ encomenda.morador.nome }}</td>
+        <td>{{ encomenda.morador.apartamento }}</td>
+        <td>{{ encomenda.data_hora_recebimento|date:'d/m/Y H:i' }}</td>
+        {% if encomenda.data_hora_entrega %}
+        <td>{{ encomenda.data_hora_entrega|date:'d/m/Y H:i' }}</td>
+        {% else %}
+        <td></td>
+        {% endif %}
+        <td>{{ encomenda.codigo_retirada }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% else %}
+<p>Não há encomendas pendentes no momento.</p>
+{% endif %}
+
+<script>
+    const input = document.getElementById("myInput");
+    const table = document.querySelector("tbody"); // "table"
+    const rows = table.getElementsByTagName("tr");
+
+    input.addEventListener("keyup", function() {
+        const filter = input.value.toLowerCase();
+
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName("td");
+            let found = false;
+            for (let j = 0; j < cells.length; j++) {
+                const cell = cells[j];
+                if (cell.innerHTML.toLowerCase().indexOf(filter) > -1) {
+                    found = true;
+                    break;
+                }
+            }
+            rows[i].style.display = found ? "" : "none";
+        }
+    });
+
+    const btnRadio1 = document.getElementById("btnradio1");
+    const btnRadio2 = document.getElementById("btnradio2");
+    const table_1 = document.querySelector("table");
+    const rows_1 = table_1.getElementsByTagName("tr");
+    
+    window.addEventListener('load', function() {
+      filterTable(false);
+    });
+
+    btnRadio1.addEventListener("click", function() {
+      filterTable(false); // Mostrar apenas as encomendas pendentes
+    });
+  
+    btnRadio2.addEventListener("click", function() {
+      filterTable(true); // Mostrar apenas as encomendas entregues
+    });
+  
+    function filterTable(mostrarEntregue) {
+  
+      for (let i = 1; i < rows_1.length; i++) {
+        const row = rows_1[i];
+        const deliveryDateCell = row.cells[5];
+        const hasDeliveryDate = deliveryDateCell.innerHTML.trim() !== "";
+        if (mostrarEntregue && !hasDeliveryDate) {
+          row.style.display = "none"; // Ocultar encomendas pendentes
+        } else if (!mostrarEntregue && hasDeliveryDate) {
+          row.style.display = "none"; // Ocultar encomendas entregues
+        } else {
+          row.style.display = ""; // Mostrar encomendas correspondentes à opção selecionada
+        }
+      }
+    }
+</script>
+
+{% endblock %}

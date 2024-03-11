@@ -1,0 +1,63 @@
+html {
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.meu-pacote {
+  padding-left: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f5f5f5;
+  }
+  
+  /* Estilos para os botões */
+  .button {
+    display: inline-block;
+    padding: 0.5rem;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 3px;
+  }
+  
+  .button:hover {
+    background-color: #0069d9;
+  }
+  
+  /* Estilos para as mensagens de sucesso e erro */
+  .success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 0.5rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+  }
+  
+  .error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 0.5rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+  }

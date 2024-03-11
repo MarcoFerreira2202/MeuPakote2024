@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Meu Pacote - Index
+{% endblock %}
+
+{% block content %}
+<h2 class="text-center fw-bold">Meu Pacote</h2>
+<p></p>
+<div class="d-flex justify-content-center">
+    <a class="btn btn-primary" href="cadastrar_encomenda" role="button">Cadastrar nova encomenda</a>
+</div>
+<p></p>
+<div class="d-flex justify-content-center">
+    <a class="btn btn-primary" href="encomendas_pendentes" role="button">Conferir encomendas pendentes</a>
+</div>
+<p></p>
+<div class="d-flex justify-content-center">
+    <a class="btn btn-primary" href="minhas_encomendas" role="button">Listar minhas encomendas</a>
+</div>
+{% endblock %}
