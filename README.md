@@ -2,12 +2,17 @@
 
 Projeto desenvolvido para o projeto integrador da UNIVESP.
 
-**Disciplina:** PJI110 - Projeto Integrador em Computação I
+**Disciplina:** Projeto Integrador em Computação III
 
-**Turma:** SANTOS-PJI110-SALA-001GRUPO-001
+**Turma:** DRP02 - Projeto Integrador em Computação III
 
 **Participantes:**
 
-* Gabriela Pancev Danez, 2100592
-* Gustavo Zarpelon Radaelli, 2100327
-* Marco Aurélio Dias Ferreira, 2105221
+Ewald Santos Cordeiro, 2108175
+Marco Aurelio Dias Ferreira, 2105221
+Ricardo de Oliveira Martins, 2000226
+Diego Capozzi dos Santos, 2003664
+Dayane da Silva, RA 2202799
+Luis Felipe da Silva Serradas, 1810015
+Paulo Costa Fonseca Junior, 2100656
+José Walter Mendes Souza, 2101628
